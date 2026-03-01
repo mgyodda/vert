@@ -716,6 +716,36 @@ button[type="submit"]:hover{
   text-transform: uppercase;
 }
 
+.boarding-collage{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.boarding-collage .collage-item{
+  min-height: 150px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background-size: cover;
+  background-position: center;
+  box-shadow: var(--shadow);
+}
+
+.boarding-collage .collage-item.wide{
+  grid-column: span 2;
+  grid-row: span 2;
+  min-height: 312px;
+}
+
+
+.boarding-collage--full{
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.boarding-collage--full .collage-item.wide{
+  grid-column: span 2;
+}
+
 .list{
   margin: 0;
   padding-left: 20px;
@@ -1196,6 +1226,19 @@ footer a:hover,
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .boarding-collage{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .boarding-collage--full{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .boarding-collage .collage-item.wide{
+    grid-column: span 2;
+    min-height: 260px;
+  }
+
   .gallery .gitem:first-child{
     grid-row: span 1;
   }
@@ -1256,8 +1299,16 @@ footer a:hover,
   .cards-grid,
   .horses-grid,
   .stats-grid,
-  .gallery{
+  .gallery,
+  .boarding-collage{
     grid-template-columns: 1fr;
+  }
+
+  .boarding-collage .collage-item,
+  .boarding-collage .collage-item.wide{
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 200px;
   }
 
   .card .body,
