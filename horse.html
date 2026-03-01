@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+ <meta charset="utf-8"/>
+ <meta name="viewport" content="width=device-width,initial-scale=1"/>
+ 
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Лошадь — КСК «Вертикаль»</title>
+ <meta name="description" content="Карточка лошади в продаже. Приезжайте познакомиться и почувствовать характер."/>
+ <link rel="stylesheet" href="assets/css/styles.css?v=202602281600"/>
+ <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+ </head>
+<body>
+<header>
+<div class="container">
+<div class="nav">
+<a aria-label="КСК Вертикаль" class="brand" href="index.html">
+<img alt="" height="34" src="assets/img/logo.svg" width="34"/>
+<div>
+<b>КСК «Вертикаль»</b>
+<span></span>
+</div>
+</a>
+<nav aria-label="Навигация" class="menu">
+<a href="index.html#services">Услуги</a>
+<a href="index.html#boarding">Постой</a>
+<a href="index.html#sale">Продажа</a>
+ <a href="horses.html">Лошади</a>
+ <a href="team.html">Команда</a>
+<a href="index.html#gallery">Галерея</a>
+<a href="index.html#contacts">Контакты</a>
+</nav>
+<div style="display:flex; gap:10px; align-items:center">
+<a class="cta secondary" href="tel:+79108630704">Позвонить</a>
+
+<button aria-expanded="false" aria-label="Открыть меню" class="burger" id="burger">☰</button>
+</div>
+</div>
+<div aria-label="Мобильное меню" class="mobile-panel" id="mobilePanel">
+<a href="index.html#services">Услуги</a>
+<a href="index.html#boarding">Постой</a>
+<a href="index.html#sale">Продажа</a><a href="horses.html">Лошади</a><a href="team.html">Команда</a>
+<a href="index.html#gallery">Галерея</a>
+<a href="index.html#contacts">Контакты</a>
+</div>
+</div>
+</header>
+
+
+ <header class="top">
+ <div class="container topbar">
+ <a class="brand" href="index.html"><span class="logo"></span><span>КСК «Вертикаль»</span></a>
+ <nav class="nav">
+ <a href="horses.html" class="active">Продажа</a>
+ <a href="#services">Услуги</a>
+ <a href="index.html#contacts">Контакты</a>
+ </nav>
+ <a class="btn-primary" href="#lead" data-goal="sale_lead_detail_header">Запросить показ</a>
+ <button id="burger" class="burger" aria-label="Меню" aria-expanded="false">☰</button>
+ </div>
+ <div id="mobilePanel" class="mobile-panel">
+ <a href="horses.html">Продажа</a>
+ <a href="#services">Услуги</a>
+ <a href="index.html#contacts">Контакты</a>
+ <a class="btn-primary" href="#lead">Запросить показ</a>
+ </div>
+ </header>
+
+ <main>
+ <section class="hero hero--compact">
+ <div class="container">
+ <a class="small" href="horses.html">← назад в каталог</a>
+ <div class="kicker">ПРОДАЖА</div>
+ <h1 id="hName">Лошадь</h1>
+ <p class="lead" id="hTagline"></p>
+ </div>
+ </section>
+
+ <section class="section reveal">
+ <div class="container">
+ <div class="grid two">
+ <div class="panel">
+ <div id="hCover" class="cover"></div>
+ </div>
+ <div class="panel">
+ <h2>Детали</h2>
+ <ul class="spec" id="hSpecs"></ul>
+ <p id="hStory"></p>
+ </div>
+ </div>
+
+ <div class="kicker" style="margin-top:24px">ФОТО</div>
+ <div class="grid gallery" id="hGallery"></div>
+
+ <div class="panel form-card" id="lead">
+ <div class="kicker">ПОКАЗ</div>
+ <h2>Запросить просмотр / видео</h2>
+ <p class="lead">Мы договоримся о времени и покажем в работе. Можно обсудить постой и тренировки после покупки.</p>
+ <form class="form lead-form" data-topic="Показ лошади" data-tel="+79108630704" data-endpoint="">
+ <input type="hidden" name="topic" value="Показ лошади"/>
+ <input name="name" class="input" placeholder="Имя" autocomplete="name"/>
+ <input name="phone" class="input" placeholder="Телефон" autocomplete="tel"/>
+ <input name="message" class="input" id="hLeadMsg" placeholder="Коротко: что прислать/когда удобно приехать"/>
+ <button class="cta" type="submit">Отправить</button>
+ <div class="form-status small" aria-live="polite"></div>
+ <div class="small">Нажимая «Отправить», вы соглашаетесь на обработку персональных данных для обратного звонка.</div>
+ </form>
+ </div>
+ </div>
+ </section>
+
+ <div id="modal" class="modal" aria-hidden="true">
+ <div class="modal-card">
+ <div class="modal-top">
+ <div id="modalTitle" class="modal-title">Фото</div>
+ <button id="modalClose" class="modal-close" aria-label="Закрыть">✕</button>
+ </div>
+ <div id="modalFrame" class="modal-frame"></div>
+ </div>
+ </div>
+ </main>
+
+ <script src="assets/js/main.js?v=202602281600"></script>
+ <script>
+ (async function(){
+ const p = new URLSearchParams(location.search);
+ const id = p.get('id');
+ const res = await fetch('assets/data/horses.json', {cache:'no-store'});
+ const horses = await res.json();
+ const h = horses.find(x=>x.id===id) || horses[0];
+ if(!h) return;
+
+ document.title = h.name + ' — КСК «Вертикаль»';
+ document.getElementById('hName').textContent = h.name;
+ document.getElementById('hTagline').textContent = h.tagline || '';
+ const cover = document.getElementById('hCover');
+ cover.style.backgroundImage = "url('"+(h.cover||"")+"')";
+ const specs = [
+ ['Пол', h.sex], ['Возраст', h.age], ['Рост', h.height],
+ ['Назначение', (h.level||[]).join(', ')], ['Цена', h.price||'по запросу'],
+ ['Где', h.location||'']
+ ].filter(x=>x[1]);
+ document.getElementById('hSpecs').innerHTML = specs.map(([k,v])=>`<li><span>${k}</span><b>${v}</b></li>`).join('');
+ document.getElementById('hStory').textContent = h.story || '';
+
+ const g = (h.gallery||[]).filter(Boolean);
+ const gal = document.getElementById('hGallery');
+ gal.innerHTML = g.map((src,i)=>`<div class="gitem" data-src="${src}" data-title="${h.name} — фото ${i+1}">
+ <div class="gthumb" style="background-image:url('${src}')"></div>
+ </div>`).join('');
+ // prefill message with horse name
+ const msg = document.getElementById('hLeadMsg');
+ msg.value = `Интересует ${h.name}. Хотим: видео/показ.`;
+
+ // make reveal observer re-run for new items
+ document.querySelectorAll('.gitem').forEach(()=>{});
+ })();
+ </script>
+</body>
+</html>
